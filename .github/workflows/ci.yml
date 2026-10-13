@@ -41,6 +41,6 @@ jobs:
       - run: docker build -t zearch-mcp:ci .
       - name: Health check
         run: |
-          docker run -d --name z -p 8080:8080 zearch-mcp:ci
+          docker run -d --name zearch-mcp-ci -p 8080:8080 zearch-mcp:ci
           for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/healthz && exit 0; sleep 1; done
-          docker logs z; exit 1
+          docker logs zearch-mcp-ci; exit 1

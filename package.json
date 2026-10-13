@@ -49,7 +49,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json && node scripts/copy-ui.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && node --test --test-reporter=spec \"test/*.test.mjs\"",
+    "test": "npm run build && node --test --test-reporter=spec test/*.test.mjs",
     "start": "node dist/index.js",
     "start:http": "node dist/index.js --http",
     "prepublishOnly": "npm test"
