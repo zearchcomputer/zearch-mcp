@@ -2,7 +2,7 @@
 
 ## 0.1.0 (unreleased)
 
-First version.
+First version, published as `@zearchcomputer/mcp`.
 
 - Tools: `research` (all six modes, follow-ups, streamed progress, queued Reverse engineer runs), `verify`, `get_run`, `list_runs`, `get_wallet`, `get_pricing`.
 - Inline answer view (MCP Apps) for research and verification results, in light and dark.
