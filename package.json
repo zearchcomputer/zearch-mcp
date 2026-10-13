@@ -1,5 +1,5 @@
 {
-  "name": "zearch-mcp",
+  "name": "@zearch/mcp",
   "version": "0.1.0",
   "description": "Zearch MCP server: research with answers you can check, and paragraph-level verification of your own text.",
   "license": "MIT",
@@ -62,5 +62,9 @@
     "@modelcontextprotocol/client": "^2.3.1",
     "@types/node": "^22.20.5",
     "typescript": "^6.0.3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

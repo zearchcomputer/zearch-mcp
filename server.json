@@ -2,17 +2,22 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.zearchcomputer/zearch-mcp",
   "title": "Zearch",
-  "description": "Research with answers you can check: every paragraph verified against its cited source, plus verification of your own text.",
-  "repository": { "url": "https://github.com/zearchcomputer/zearch-mcp", "source": "github" },
+  "description": "Research with answers you can check: every paragraph verified against its cited source.",
+  "repository": {
+    "url": "https://github.com/zearchcomputer/zearch-mcp",
+    "source": "github"
+  },
   "websiteUrl": "https://zearch.computer",
   "version": "0.1.0",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
-      "identifier": "zearch-mcp",
+      "identifier": "@zearch/mcp",
       "version": "0.1.0",
-      "transport": { "type": "stdio" },
+      "transport": {
+        "type": "stdio"
+      },
       "environmentVariables": [
         {
           "name": "ZEARCH_API_KEY",

@@ -7,9 +7,11 @@
 
 <h3 align="center">Answers you can check, inside any MCP client.</h3>
 
-`zearch-mcp` connects Claude, Cursor, VS Code and other [Model Context Protocol](https://modelcontextprotocol.io) clients to [Zearch](https://zearch.computer). Ask a question and you get an answer whose every paragraph was checked against the source it cites, with the exact passage Zearch read. Or check text your own model wrote against sources you already have.
+`@zearch/mcp` connects Claude, Cursor, VS Code and other [Model Context Protocol](https://modelcontextprotocol.io) clients to [Zearch](https://zearch.computer). Ask a question and you get an answer whose every paragraph was checked against the source it cites, with the exact passage Zearch read. Or check text your own model wrote against sources you already have.
 
-> **Status:** early. The Zearch API is not open to everyone yet, and this package is not on npm yet; see [Run from source](#run-from-source). Both are coming soon.
+> **Status:** early. The Zearch API is not open to everyone yet.
+
+[![npm](https://img.shields.io/npm/v/@zearch/mcp)](https://www.npmjs.com/package/@zearch/mcp)
 
 ## How an answer is made
 
@@ -53,7 +55,7 @@ You need a Zearch API key (`zk_live_…`). Create one in the Zearch app under **
 ### Claude Code
 
 ```sh
-claude mcp add zearch --env ZEARCH_API_KEY=zk_live_your_key -- npx -y zearch-mcp
+claude mcp add zearch --env ZEARCH_API_KEY=zk_live_your_key -- npx -y @zearch/mcp
 ```
 
 ### Claude Desktop
@@ -65,7 +67,7 @@ In *Settings → Developer → Edit config*, add:
   "mcpServers": {
     "zearch": {
       "command": "npx",
-      "args": ["-y", "zearch-mcp"],
+      "args": ["-y", "@zearch/mcp"],
       "env": { "ZEARCH_API_KEY": "zk_live_your_key" }
     }
   }
@@ -87,7 +89,7 @@ In *Settings → Developer → Edit config*, add:
     "zearch": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "zearch-mcp"],
+      "args": ["-y", "@zearch/mcp"],
       "env": { "ZEARCH_API_KEY": "${input:zearch-key}" }
     }
   }
@@ -96,20 +98,18 @@ In *Settings → Developer → Edit config*, add:
 
 ### Run from source
 
-Until the first npm release:
-
 ```sh
 git clone https://github.com/zearchcomputer/zearch-mcp
 cd zearch-mcp
 npm ci && npm run build
 ```
 
-Then use `node /absolute/path/to/zearch-mcp/dist/index.js` as the command in any config above, instead of `npx -y zearch-mcp`.
+Then use `node /absolute/path/to/zearch-mcp/dist/index.js` as the command in any config above, instead of `npx -y @zearch/mcp`.
 
 ## Remote (HTTP) mode
 
 ```sh
-zearch-mcp --http --port 8787            # http://127.0.0.1:8787/mcp
+npx -y @zearch/mcp --http --port 8787            # http://127.0.0.1:8787/mcp
 ```
 
 Every request uses the caller's own key, sent as `Authorization: Bearer zk_live_…`; the server stores no keys. `ZEARCH_API_KEY` is used as a fallback only when the server listens on loopback, so a public deployment can't spend the operator's credits for someone else. `GET /healthz` reports liveness.
@@ -117,7 +117,7 @@ Every request uses the caller's own key, sent as `Authorization: Bearer zk_live_
 To serve on a public interface, bind it and list the hostnames you serve, so requests with other `Host` headers are refused:
 
 ```sh
-zearch-mcp --http --host 0.0.0.0 --port 8080 --allowed-hosts mcp.zearch.computer
+npx -y @zearch/mcp --http --host 0.0.0.0 --port 8080 --allowed-hosts mcp.zearch.computer
 ```
 
 A `Dockerfile` is included for this.
