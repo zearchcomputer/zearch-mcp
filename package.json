@@ -1,0 +1,66 @@
+{
+  "name": "zearch-mcp",
+  "version": "0.1.0",
+  "description": "Zearch MCP server: research with answers you can check, and paragraph-level verification of your own text.",
+  "license": "MIT",
+  "author": "Zearch (https://zearch.computer)",
+  "homepage": "https://github.com/zearchcomputer/zearch-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zearchcomputer/zearch-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zearchcomputer/zearch-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "research",
+    "citations",
+    "verification",
+    "fact-checking",
+    "zearch"
+  ],
+  "mcpName": "io.github.zearchcomputer/zearch-mcp",
+  "type": "module",
+  "bin": {
+    "zearch-mcp": "dist/index.js"
+  },
+  "main": "dist/server.js",
+  "types": "dist/server.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/copy-ui.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test --test-reporter=spec \"test/*.test.mjs\"",
+    "start": "node dist/index.js",
+    "start:http": "node dist/index.js --http",
+    "prepublishOnly": "npm test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "^2.3.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.3.1",
+    "@types/node": "^22.20.5",
+    "typescript": "^6.0.3"
+  }
+}
