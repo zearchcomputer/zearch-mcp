@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test (Node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: Package contents
+        if: matrix.node == 22
+        run: npm pack --dry-run
+
+  docker:
+    name: Docker image builds
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t zearch-mcp:ci .
+      - name: Health check
+        run: |
+          docker run -d --name zearch-mcp-ci -p 8080:8080 zearch-mcp:ci
+          for i in $(seq 1 20); do curl -fsS http://127.0.0.1:8080/healthz && exit 0; sleep 1; done
+          docker logs zearch-mcp-ci; exit 1
