@@ -1,13 +1,13 @@
 name: Release
 
-# Push a version tag (v1.2.3) to publish @zearch/mcp to npm and list it in the
+# Push a version tag (v1.2.3) to publish @zearchcomputer/mcp to npm and list it in the
 # official MCP Registry.
 #
 # npm auth, in order of preference:
 #   1. Trusted publishing (OIDC): configure it on npmjs.com for this repo and this
 #      workflow file, then delete the NPM_TOKEN secret. No secret involved.
 #   2. The NPM_TOKEN repository secret: a granular token with read and write on
-#      @zearch packages. Needed for the very first publish.
+#      @zearchcomputer packages. Needed for the very first publish.
 # The MCP Registry uses GitHub OIDC for the io.github.zearchcomputer namespace: no secret.
 
 on:
@@ -65,10 +65,10 @@ jobs:
         run: |
           VERSION="$(node -p 'require("./package.json").version')"
           for i in $(seq 1 30); do
-            npm view "@zearch/mcp@$VERSION" version >/dev/null 2>&1 && exit 0
+            npm view "@zearchcomputer/mcp@$VERSION" version >/dev/null 2>&1 && exit 0
             sleep 10
           done
-          echo "npm did not list @zearch/mcp@$VERSION within 5 minutes"; exit 1
+          echo "npm did not list @zearchcomputer/mcp@$VERSION within 5 minutes"; exit 1
 
       - name: Install mcp-publisher
         run: |
