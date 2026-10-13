@@ -3,11 +3,9 @@ name: Release
 # Push a version tag (v1.2.3) to publish @zearchcomputer/mcp to npm and list it in the
 # official MCP Registry.
 #
-# npm auth, in order of preference:
-#   1. Trusted publishing (OIDC): configure it on npmjs.com for this repo and this
-#      workflow file, then delete the NPM_TOKEN secret. No secret involved.
-#   2. The NPM_TOKEN repository secret: a granular token with read and write on
-#      @zearchcomputer packages. Needed for the very first publish.
+# npm auth is trusted publishing (OIDC): npmjs.com trusts this repo, this workflow file and
+# the `release` environment, so no npm token is stored anywhere. Configure it under the
+# package's Settings → Trusted publishing before merging this.
 # The MCP Registry uses GitHub OIDC for the io.github.zearchcomputer namespace: no secret.
 
 on:
@@ -58,8 +56,6 @@ jobs:
 
       - name: Publish to npm
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Wait until npm serves the new version
         run: |
